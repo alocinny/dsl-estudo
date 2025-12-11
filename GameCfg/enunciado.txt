@@ -1,0 +1,46 @@
+Cenário: Um arquivo simples para definir configurações divididas por seções (Vídeo, Áudio, Gameplay).
+
+Entrada (DSL Exemplo):
+
+config setup_minecraft {
+    section Video {
+        set resolution = "1920x1080"
+        set vsync = true
+    }
+    section Audio {
+        set master_vol = 80
+        set music_vol = 120
+    }
+}
+
+O Código Python Gerado (Alvo): Vamos gerar um dicionário aninhado em Python.
+
+data = {}
+
+# Section Video
+data["Video"] = {}
+data["Video"]["resolution"] = "1920x1080"
+data["Video"]["vsync"] = True
+
+# Section Audio
+data["Audio"] = {}
+data["Audio"]["master_vol"] = 80
+data["Audio"]["music_vol"] = 120
+
+=== Seus Requisitos: ===
+
+1. Gramática (.g4):
+
+    - Raiz: config ID { seções }.
+
+    - Seção: section ID { configurações }.
+
+    - Configuração (set): par chave-valor. O valor pode ser INT, STRING ou BOOLEAN (true/false).
+
+2. Análise Semântica (Visitor):
+
+    - Regra de Volume: Se a chave (ID) terminar com _vol (ex: music_vol, sfx_vol), o valor (INT) não pode passar de 100.
+
+3. Geração de Código (Visitor):
+
+    - Gere as atribuições do dicionário conforme o alvo.
