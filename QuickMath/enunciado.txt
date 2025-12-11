@@ -1,0 +1,46 @@
+Cenário: Uma DSL simples para calcular e imprimir resultados. O desafio é garantir que a variável exista antes de ser usada.
+
+Entrada (DSL Exemplo):
+
+program math_test {
+    var x = 10
+    var y = 5
+    show x + y
+    var z = 2
+    show z * x
+}
+
+Código Python Gerado (Alvo):
+
+def math_test():
+    x = 10
+    y = 5
+    print(x + y)
+    z = 2
+    print(z * x)
+
+=== Seus Requisitos: ===
+
+1. Gramática (.g4):
+
+    - Estrutura básica: program tem ID e lista de declarações (stat).
+
+    - Declaração (stat): pode ser var ou show.
+
+    - var: define um ID e um INT.
+
+    - show: imprime uma expressão matemática.
+
+    Atenção na Expressão: A expressão (expr) deve suportar soma (+), multiplicação (*), IDs e INTs. (Lembre-se da precedência ou faça simples).
+
+2. Análise Semântica (Visitor):
+
+    - Você não pode usar um ID dentro do comando show se ele não foi declarado antes com var.
+
+3. Geração de Código (Visitor):
+
+    - Tradução simples para Python.
+
+    - var x = 10 vira x = 10.
+
+    - show expr vira print(expr).
