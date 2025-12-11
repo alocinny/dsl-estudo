@@ -1,0 +1,61 @@
+Cenário: Você precisa criar uma DSL para definir missões simples de drones. A linguagem define pontos de passagem (waypoints) e ações específicas em cada ponto.
+
+Entrada (DSL Exemplo):
+
+mission entrega_expressa {
+    config speed 15.5
+
+    goto ponto_inicial:
+        pos 0 0 10
+        action takeoff
+
+    goto casa_cliente:
+        pos 50 120 20
+        hover 5
+
+    goto base:
+        pos 0 0 0
+        action land
+}
+
+O Código Python Gerado (Alvo): Deve gerar uma classe Python que configura a velocidade e cria uma lista de comandos sequenciais.
+
+class Mission_entrega_expressa:
+    def run(self, drone):
+        drone.set_speed(15.5)
+        
+        # ponto_inicial
+        drone.move_to(x=0, y=0, z=10)
+        drone.takeoff()
+
+        # casa_cliente
+        drone.move_to(x=50, y=120, z=20)
+        drone.hover(seconds=5)
+
+        # base
+        drone.move_to(x=0, y=0, z=0)
+        drone.land()
+
+=== Seus Requisitos (Responda abaixo): ===
+
+1. Gramática (.g4):
+
+    - Defina a estrutura hierárquica (mission contém config e vários goto).
+
+    - pos aceita 3 inteiros (x, y, z).
+
+    - action aceita apenas comandos pré-definidos (takeoff, land).
+
+    - hover aceita um tempo em segundos (int).
+
+    - config define a velocidade (float).
+
+2. Análise Semântica (Visitor):
+
+    - Verifique se a velocidade (speed) não ultrapassa 25.0 (limite de segurança do drone).
+
+    - Verifique se o comando land (pousar) só aparece no último goto da missão. Se aparecer no meio, é erro.
+
+3. Geração de Código (Visitor):
+
+    - Gere a estrutura da classe e o método run.
