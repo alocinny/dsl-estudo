@@ -1,0 +1,1 @@
+adicionei a regra formula -> formula na grmática. Isso permite escrever condicionais diretas como P(x) -> Q(x) em vez de ter que escrever a forma complexa equivalente. Isso facilita e reduz  erros lógicos do programador
