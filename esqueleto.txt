@@ -1,0 +1,154 @@
+# 1. IMPORTS (Sempre igual)
+from antlr4 import *
+from NomeDaGramaticaLexer import *
+from NomeDaGramaticaParser import *
+
+# 2. MEMÓRIA (Dicionário ou Lista)
+# Interpretador -> Guarda valores (x=10)
+# Semântico -> Guarda tipos (x="int")
+memoria = {} 
+
+# 3. FUNÇÃO CÉREBRO (Recursiva)
+def processa(t):
+    match t:
+        # --- CASO NÓ PAI (Ex: Programa, Lista de Comandos) ---
+        case NomeDaGramaticaParser.ProgramaContext():
+            for filho in t.getChildren(): # Visita todos
+                processa(filho)
+                
+        # --- CASO COMANDO/AÇÃO (Ex: Atribuição, Declaração) ---
+        case NomeDaGramaticaParser.ComandoContext():
+            # A. Extrai dados (Tokens)
+            id = t.ID().getText()
+            valor = processa(t.expressao()) # Desce na árvore se precisar
+            
+            # B. FAZ A MÁGICA (Aqui muda conforme a questão)
+            # ... recheio ...
+            
+        # --- CASO FOLHA/VALOR (Ex: Número, String) ---
+        case NomeDaGramaticaParser.NumContext():
+            return float(t.NUM().getText()) # Retorna o valor limpo
+
+        case _:
+            pass # Ignora lixo
+
+---
+
+Como adaptar o "Recheio" (B. Faz a Mágica)
+Dependendo do que a questão pedir, você muda apenas o passo B.
+
+1. Se pedir INTERPRETADOR (Robô, Calculadora)
+Objetivo: Rodar agora.
+
+Ação: Calcular e atualizar variável.
+
+Exemplo:
+
+# Recheio:
+resultado = valor1 + valor2
+memoria[id] = resultado
+print(resultado)
+2. Se pedir ANALISADOR SEMÂNTICO (Tipos, Variáveis não declaradas)
+Objetivo: Achar erro.
+
+Ação: Verificar if e dar raise Exception.
+
+Exemplo:
+
+# Recheio:
+if id in memoria:
+    raise Exception(f"Erro: Variável {id} já declarada!")
+memoria[id] = "int" # Guarda só o tipo, não o valor
+3. Se pedir COMPILADOR (Gerar código)
+Objetivo: Escrever print.
+
+Ação: Dar print em strings de comando.
+
+Exemplo:
+
+# Recheio:
+processa(t.expressao()) # Gera código dos filhos primeiro
+print(f"STORE {id}")    # Imprime instrução da máquina
+
+=========================================================================================================
+
+# 1. MEMÓRIA DO FISCAL
+tabela = {}  # Pode ser um set() se só precisar checar nomes
+
+def analisa(t):
+    match t:
+        # --- CASO 1: DECLARAÇÃO (Nascer) ---
+        # Ex: "var x;" ou "Ingrediente Farinha"
+        case Parser.DeclaracaoContext():
+            nome = t.ID().getText()
+            tipo = t.TIPO().getText() # Se houver tipo
+            
+            # REGRA: Não pode nascer duas vezes
+            if nome in tabela:
+                raise Exception(f"Erro: '{nome}' já existe!")
+            
+            # AÇÃO: Registra na tabela
+            tabela[nome] = tipo # ou tabela.add(nome)
+
+        # --- CASO 2: USO (Viver) ---
+        # Ex: "x = 10" ou "Adicione Farinha"
+        case Parser.UsoContext():
+            nome = t.ID().getText()
+            
+            # REGRA: Tem que ter nascido antes
+            if nome not in tabela:
+                raise Exception(f"Erro: '{nome}' não foi declarado!")
+
+        # --- CASO 3: OPERAÇÃO (Misturar Tipos) ---
+        # Ex: "10 + x"
+        case Parser.SomaContext():
+            # No semântico, a gente "calcula" o TIPO, não o valor
+            tipo_esq = analisa(t.esq()) # Retorna 'int'
+            tipo_dir = analisa(t.dir()) # Retorna 'int' ou 'string'
+            
+            # REGRA: Tipos iguais
+            if tipo_esq != tipo_dir:
+                raise Exception("Erro: Não pode somar banana com laranja!")
+            
+            return tipo_esq # A soma de int+int resulta em 'int'
+
+        # --- CASO PADRÃO (Nós pais) ---
+        case Parser.ProgramaContext():
+            for filho in t.getChildren():
+                analisa(filho)
+                
+        # --- CASO FOLHA (Valor primitivo) ---
+        case Parser.NumContext():
+            return 'int' # Retorna o Rótulo, não o valor!
+
+---
+Ingredientes (O que você precisa ter)
+Tabela de Símbolos (Memória):
+
+No Interpretador: x = 10 (Guarda valor).
+
+No Semântico: x = 'int' ou apenas ['x', 'y'] (Guarda existência ou tipo).
+
+O Fiscal (Função Recursiva):
+
+Visita os nós.
+
+Não retorna valor numérico.
+
+Retorna TIPO (ex: "int", "string") ou Nada.
+
+As Regras (Os ifs):
+
+Variável não declarada.
+
+Variável duplicada.
+
+Tipos incompatíveis (somar texto com número).
+---
+Resumo para levar na cabeça
+
+Viu Declaração? -> if nome in tabela: ERRO -> tabela[nome] = tipo
+
+Viu Uso? -> if nome not in tabela: ERRO
+
+Viu Expressão? -> Pegue os tipos dos filhos (tipo1 = analisa(f1)) -> if tipo1 != tipo2: ERRO
