@@ -1,0 +1,17 @@
+2) Escolha uma das seguintes DSLs para implementar. Descreva a linguagem utilizando formato ANTLR, implemente o algoritmo solicitado na forma de uma função, orientada à sintaxe, utilizando a API do ANTLR e coerente com a sua descrição.
+
+
+Opção A – Controle de Robô
+
+Defina uma DSL para controlar o movimento de um robô em um plano 2D, com comandos como:
+
+AVANCE 10
+REPITA 10
+    GIRE 45 GRAUS A ESQUERDA
+    AVANCE 10
+FIM-REPITA
+GIRE 45 GRAUS A DIREITA
+VOLTE 10
+
+Escreva um interpretador que calcule a posição final (x, y) do robô.
+No início o robô está na origem na direção norte.
