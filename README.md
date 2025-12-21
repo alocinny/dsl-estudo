@@ -51,4 +51,8 @@ python main.py
 # ou
 python codegenVisitor.py
 ```
-<div align="center"> <p>Desenvolvido por <a href="https://www.google.com/search?q=https://github.com/alocinny"><b>Benny</b></a> 🐍</p> <p><i>Engenharia da Computação - UPE</i></p> </div>
+<div align="center"> 
+  <sub>Built with 💀 by alocinny</sub></p> 
+  <p><i>Engenharia da Computação - UPE</i></p> 
+</div>
+
