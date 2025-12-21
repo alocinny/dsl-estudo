@@ -12,19 +12,6 @@
 </div>
 <br/>
 
-## Projetos & DSLs
-
-Aqui estão as linguagens e experimentos desenvolvidos, focando em análise léxica, sintática e semântica (Visitors).
-
-| Projeto | Descrição & Conceitos | Status |
-| :--- | :--- | :--- |
-| **🚁 FlyPlan** | **DSL de Drones**. Define missões autônomas com waypoints (x,y,z) e comandos (takeoff, land, hover). Gera código Python para controle real. | ✅ Concluído |
-| **📝 FormFlow** | **Formulários Interativos**. Sistema de perguntas com tipagem forte, validações (`min`, `max`) e ramificação condicional (`ask_if`). | ✅ Concluído |
-| **⚙️ GameCfg** | **Configuração Hierárquica**. DSL para definir configurações de jogos (Vídeo, Áudio) com validação semântica de valores. | ✅ Concluído |
-| **🧮 QuickMath** | **Math Interpreter**. Linguagem simples para declaração de variáveis e cálculo de expressões matemáticas. | ✅ Concluído |
-| **🧠 Interpretador** | Estudos fundamentais sobre construção de interpretadores puros (sem geração de código). | 🚧 Em Andamento |
-
-
 ## Tecnologias & Ferramentas
 
 * **Linguagem Host:** Python 3.x
@@ -55,4 +42,5 @@ python codegenVisitor.py
   <sub>Built with 💀 by alocinny</sub></p> 
   <p><i>Engenharia da Computação - UPE</i></p> 
 </div>
+
 
