@@ -38,6 +38,20 @@ python main.py
 # ou
 python codegenVisitor.py
 ```
+## Referência de Estudos
+
+Documentação consolidada com os gabaritos de implementação e padrões utilizados na disciplina.
+
+<table width="100%">
+  <tr>
+    <td width="100%" align="center">
+      <a href="./RESUMO_GABARITOS.md">
+        <img src="https://img.shields.io/badge/Acessar_Resumo_Técnico-➔-0d1117?style=for-the-badge&logo=readthedocs&logoColor=39d353&labelColor=0d1117&color=39d353" alt="Ver Gabaritos">
+      </a>
+    </td>
+  </tr>
+</table>
+
 <div align="center"> 
   <sub>Built with 💀 by alocinny</sub></p> 
   <p><i>Engenharia da Computação - UPE</i></p> 
