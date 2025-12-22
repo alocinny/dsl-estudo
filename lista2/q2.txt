@@ -1,0 +1,51 @@
+2) Interpretador de Jogo RPG (3,0 pontos)
+Você está criando a IA de um Boss para um jogo estilo Cuphead.
+Gramática:
+
+behavior : acao+ EOF ;
+acao 
+    : 'ATACAR' DANO           #Atacar
+    | 'CURAR' VIDA            #Curar
+    | 'ENQUANTO' ID '>' NUM 'FACA' acao+ 'FIM' #LoopWhile
+    ;
+ID : [a-z]+ ;  # Ex: player_hp
+NUM : [0-9]+ ;
+
+
+Estado Global: player_hp = 100, boss_hp = 500.
+Tarefa: Escreva o Interpretador (match/case) que:
+ATACAR 10: Subtrai 10 do player_hp.
+CURAR 50: Soma 50 ao boss_hp.
+ENQUANTO player_hp > 0 ...: Executa a lista de ações repetidamente até a condição ser falsa.
+Dica: Use um while do Python dentro do case. Lembre de atualizar a condição a cada volta!
+
+player_hp = 100
+boss_hp = 500
+
+def interpretador(t):
+    global boss_hp, player_hp
+
+    case CupheadParser.ProgramContext():
+        for c in t.getChildren()
+            interpretador(c)
+
+    # caso 1
+    case CupheadParser.AtacarContext():
+        dano = int(t.DANO().getText())
+        player_hp -= dano
+    
+    # caso 2
+    case CupheadParser.CurarContext():
+        cura = int(t.VIDA().getText())
+        boss_hp += cura
+    
+    # caso 3
+    case CupheadParser.LoopWhileContext():
+        nome_var = t.ID().getText()
+        limitie = int(t.NUM().getText())
+        lista_acoes = t.acao()
+
+        while globals()[nome_var] > limite:
+            for acao in lista_acoes:
+                interpretador(acao)
+

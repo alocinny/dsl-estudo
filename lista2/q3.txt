@@ -1,0 +1,59 @@
+3) Análise Semântica de Funções (2,5 pontos)
+O erro mais comum em C/Java é chamar uma função com o número errado de argumentos. Vamos impedir isso.
+Entrada:
+def soma(a, b) { ... }
+def oi() { ... }
+
+soma(10);       // ERRO! Esperava 2 args, recebeu 1
+oi(1, 2);       // ERRO! Esperava 0 args, recebeu 2
+soma(10, 20);   // OK
+
+
+Sua Tarefa (Função analisa):
+Declaração (def): Guarde na tabela o nome da função e a quantidade de parâmetros (aridade). Ex: tabela['soma'] = 2.
+Chamada (call): Verifique:
+A função existe?
+O número de argumentos passados bate com o número guardado na tabela?
+Se não bater, raise Exception.
+
+program: func+;
+func
+    : def #Definir
+    | call #Chamar
+
+def: 'def' ID '(' params? ')' '{' '}'
+params: (ID (',' ID)*) 
+
+call: ID '(' params ')'
+
+
+tabela = {}
+
+def analisa(t):
+    match t:
+        case FunctionParser.ProgramContext():
+            for c in t.getChildren():
+                analisa(c)
+
+        case FunctionsParser.DefinirContext():
+            nome = t.ID().getText()
+
+            qnt_param = len(t.params())
+
+            if nome in tabela:
+                raise Exception(f"erro: a função '{nome}' já existe")
+            
+            tabela[nome] = qnt_param
+
+        case FunctionParser.ChamarContext():
+            nome = t.ID().getText()
+            qnt_param = len(t.params())
+
+            if nome not in tabela:
+                raise Exception(f"erro: a função '{nome}' não existe")
+            
+            if qnt_param != tabela[nome]:
+                raise Exception(f"erro: a função '{nome}' espera {tabela[nome]} argumentos, recebeu {qnt_param}")
+
+
+

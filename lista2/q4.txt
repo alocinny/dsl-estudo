@@ -1,0 +1,46 @@
+4) Gerador de Código: IF/ELSE com Labels (2,5 pontos)
+O Desafio do Chefão: Máquinas de pilha não têm if com chaves {}. Elas usam JUMP (pule para lá) e JZ (pule se for zero/falso).
+Código Fonte:
+if x > 10 then
+   y = 1
+else
+   y = 0
+
+
+Instruções Novas:
+GT: Compara topo da pilha (retorna 1 se maior, 0 se menor).
+JZ label: Pula para label se o topo for 0 (falso).
+JUMP label: Pula incondicionalmente.
+LABEL label: Marca um ponto no código.
+Sua Tarefa:
+Escreva a sequência de instruções (PUSHI, LOAD, GT, JZ...) para traduzir o código acima.
+Dica de Lógica:
+Teste x > 10.
+JZ L1 (Se falso, pule para o ELSE).
+Código do THEN (y=1).
+JUMP L2 (Acabou o then, pule o else).
+LABEL L1 (Começo do ELSE).
+Código do ELSE (y=0).
+LABEL L2 (Fim de tudo).
+
+endereços:
+x = 000
+y = 001
+
+; a condição (x > 10)
+PUSHI 000 
+LOAD
+PUSHI 10
+GT 
+
+JZ L1 ; se for 0 (falso) pule pro else
+
+PUSHI 1
+STORE 001
+JUMP
+
+LABEL L1 
+PUSHI 0
+STORE 001
+
+LABEL L2

@@ -1,0 +1,20 @@
+1) Teoria: Ambiguidade e Tipagem (2,0 pontos)
+a) Dada a gramática E : E '+' E | 'n'. Explique por que ela é Ambígua desenhando duas árvores sintáticas diferentes para a entrada n + n + n.
+b) Qual a diferença entre Tipagem Estática (feita pelo Compilador) e Tipagem Dinâmica (feita pelo Interpretador)? Dê um exemplo de erro que só a Estática pega e um que só a Dinâmica pega.
+
+    E + E
+    |  / \
+    n E + E
+      |   |
+      n   n
+
+        E + E 
+    / \  |
+    E + E n
+    |   |
+    n   n 
+
+como pode-se perceber pela árvore, como você consegue chegar no resultado final seja derivando mais a esquerda ou mais a direita, isso mostra que essa gramática é ambígua pois dois caminhos resultam no mesmo resultado final.
+
+- Tipagem Estática: ocorre durante a compilação (antes de rodar), quem faz é o analisador semântico. Ex: int x = "texto" o compilador para imediatamente
+- Tipagem dinâmica: ocorre durante a execução, quem faz é o interpretador. Por exemplo, tentar domar um número com uma string que o usuário acabou de digitar. O programa roda até a linha do erro e então quebra.
