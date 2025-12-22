@@ -1,0 +1,36 @@
+3) Análise Semântica de Hardware (2,5 pontos)
+Considere a DSL "DroneConfig" para montagem de componentes.
+grammar DroneConfig;
+config : instrucao+ EOF ;
+instrucao
+    : 'COMPONENTE' ID TIPO    #Declarar
+    | 'CONECTAR' ID 'EM' ID   #Conectar
+    ;
+TIPO : 'Motor' | 'ESC' | 'FlightController' ;
+ID : [a-zA-Z]+ ;
+
+
+Escreva a função analisa_semantica(t) para identificar os seguintes erros:
+Duplicidade: Declarar dois componentes com o mesmo ID (ex: dois motores chamados "M1").
+Uso Indevido: Tentar conectar um componente que não foi declarado.
+Auto-conexão: Tentar conectar um componente nele mesmo (ex: CONECTAR M1 EM M1).
+
+tabela = set()
+
+def analisa_semantica(t):
+    # duplicidade
+    case DroneConfigParser.DeclararContext():
+        var = t.ID().getText()
+        if var in tabela:
+            raise Exception(f"erro: {var} ja existe")
+        tabela.add(var)
+    # uso Indevido
+    case DroneConfigParser.ConectarContext():
+        comp1 = t.ID(0).getText()
+        comp2 = t.ID(1).getText()
+        if comp1 not in tabela or comp2 not in tabela:
+            raise Exception(f"erro: {comp1} ou {comp2} nao existe")
+        # auto conexão
+        if comp1 == comp2:
+            raise Exception(f"erro: {comp1} nao pode conectar com ele mesmo")
+

@@ -1,0 +1,9 @@
+1) Teoria (2,0 pontos)
+Explique, de forma sucinta (bullet points), que tipos de erros são identificados em cada fase abaixo. Dê um exemplo de código que causaria erro em cada uma:
+Analisador Léxico (Scanner):
+Analisador Sintático (Parser):
+Analisador Semântico:
+
+- Analisador léxico: Análise léxica é o processo realizado sobre um texto que divide esse texto em lexemas e converte pra uma sequência de tokens, os quais são usados para alimentar um parser. Então, por exemplo, a presença de caracteres que não pertemcem a nenhum padrão conhecido na linguagem resultaria em um erro léxico.
+- Analisador sintático: Análise sintática envolve a verificação da estrutura gramatical do texto, garantindo que os tokens estejam organizados de acordo com as regras da linguagem, seguindo a gramática da linguagem. Por exemplo, a falta de uma vírgula ou aspas, erros ortográficos dentre outros resultariam em um erro sintático.
+- Analisador semântico: Análise semântica tem como objetivo verificar se o código fonte respeita as regras semânticas, isso inclui validação de tipos, verificação de escopos e análise de dependência entnre identificadores e etc. Por exemplo, tentar dar um comando x que só pode ser executado depois do comando y resultaria em um erro semântico.

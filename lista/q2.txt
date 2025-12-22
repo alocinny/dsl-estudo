@@ -1,0 +1,63 @@
+2) Interpretador de Missão (3,0 pontos)
+Considere a DSL "DronePilot" para controle de voo.
+grammar DronePilot;
+missao : comando+ EOF ;
+comando 
+    : 'TAKEOFF' ALTURA         #Decolar
+    | 'GOTO' X Y               #Mover
+    | 'LAND'                   #Pousar
+    ;
+ALTURA : [0-9]+ ;
+X : [0-9]+ ;
+Y : [0-9]+ ;
+
+
+Escreva um Interpretador em Python (usando o padrão funcional match/case) que simule o voo com as seguintes regras de negócio (física):
+Estado Inicial: x=0, y=0, z=0 (chão), bateria=100.
+Consumo: Cada comando gasta 10% de bateria.
+Segurança: Se a bateria for menor ou igual a 0, o drone deve exibir "CRITICAL BATTERY" e ignorar qualquer comando subsequente.
+Output: Imprimir a posição atual (x, y, z) após cada movimento.
+
+bateria = 100
+x = 0
+y = 0
+z = 0
+
+def interpretador(t):
+    global bateria
+    global x
+    global y
+    global z
+
+    match t:
+        case DronePilotParser.ProgramContext():
+            for c in t.getChildren():
+                interpretador(c)
+
+        # caso 1: Decolar
+        case DronePilotParser.DecolarContext():
+            if bateria <= 0:
+                print("CRITICAL BATTERY")
+                return
+            z = int(t.ALTURA().getText())
+            bateria -= 10
+            print(f"({x}, {y}, {z})")
+
+        #caso 2: Mover
+        case DronePilotParser.MoverContext():
+            if bateria <= 0:
+                print("CRITICAL BATTERY")
+                return
+            x = int(t.X().getText())
+            y = int(t.Y().getText())
+            bateria -= 10
+            print(f"({x}, {y}, {z})")
+
+        # caso 3: LAND
+        case DronePilotParser.PousarContext():
+            if bateria <= 0:
+                print("CRITICAL BATTERY")
+                return 
+            bateria -= 10
+            z = 0
+            print(f"({x}, {y}, {z})")

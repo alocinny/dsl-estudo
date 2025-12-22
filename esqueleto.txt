@@ -152,3 +152,42 @@ Viu Declaração? -> if nome in tabela: ERRO -> tabela[nome] = tipo
 Viu Uso? -> if nome not in tabela: ERRO
 
 Viu Expressão? -> Pegue os tipos dos filhos (tipo1 = analisa(f1)) -> if tipo1 != tipo2: ERRO
+
+-------------------------------------------------------
+
+📝 A Receita (Decore isso)
+Ingredientes Globais:
+
+mapa = {}: Um caderninho para anotar onde cada variável mora (ex: x -> endereço 0).
+
+end = 0: O contador para o próximo endereço livre.
+
+Modo de Preparo (Função gera):
+
+Viu Número (10)?
+
+Grita: PUSHI 10 (Empilha o valor).
+
+Viu Variável (x) para LER?
+
+Descobre o endereço (ex: 0).
+
+Grita: PUSHI 0 (Empilha endereço).
+
+Grita: LOAD (Troca endereço pelo valor).
+
+Viu Conta (+, -, *)?
+
+Cozinha o lado Esquerdo (gera(esq)).
+
+Cozinha o lado Direito (gera(dir)).
+
+Grita a operação: ADD, SUB, MUL ou DIV.
+
+Viu Atribuição (x = ...)?
+
+Cozinha o lado Direito (o valor da conta) INTEIRO primeiro.
+
+Descobre o endereço de x (ex: 0).
+
+Grita: STORE 0 (Guarda o topo da pilha no endereço 0).

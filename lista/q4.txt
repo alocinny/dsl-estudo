@@ -1,0 +1,31 @@
+4) Gerador de Código (Compilador) (2,5 pontos)
+Você está projetando o compilador para o chip do drone. Traduza a expressão aritmética abaixo para as instruções da Máquina de Pilha (PUSHI, LOAD, STORE, ADD, SUB, MUL).
+
+Entrada (Código Fonte):
+var altitude;
+var offset;
+altitude = 100;
+offset = 5;
+altitude = altitude + (offset * 2);
+
+Sua Tarefa:
+Mapeie os endereços de memória (ex: altitude -> 0, offset -> 1).
+Escreva manualmente (ou em código gera_codigo) a saída exata das instruções de pilha correspondentes ao código acima.
+
+
+endereços:
+altitude = 0
+offset = 1
+
+PUSHI 100
+STORE 0
+PUSHI 5
+STORE 1
+PUSHI 0
+LOAD
+PUSHI 1
+LOAD
+PUSHI 2
+MUL
+ADD
+STORE 0
